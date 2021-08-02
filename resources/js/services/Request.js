@@ -1,6 +1,5 @@
 import axios from "axios";
 import store from "../stores/user";
-import requestStore from "../stores/request";
 import Vue from "vue";
 import _ from "lodash";
 
@@ -11,6 +10,8 @@ const service = axios.create({
 
 service.interceptors.request.use(config => {
   store.commit("handleLoading", true);
+  // config.headers.common['Access-Control-Allow-Origin'] = '*';
+
   return config;
 });
 
@@ -40,9 +41,7 @@ service.interceptors.response.use(
           return Promise.reject(errors[Object.keys(errors)[0]]);
         }
         break;
-      case 5:
-        Vue.prototype.$message.error(errors);
-        break;
+      
     }
 
     return Promise.reject(error);
