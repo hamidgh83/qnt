@@ -4,13 +4,16 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import vuetify from './plugins/vuetify'
 import router from './router'
+import store from "./stores/user"
+import App from "./App.vue"
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
+
 
 Vue.use(VueRouter)
 
-// let Market = require('./components/Market.vue')
-
-const app = new Vue({
-    el: '#app',
+new Vue({
     vuetify,
-    router
-});
+    router,
+    store,
+    render: h => h(App)
+}).$mount("#app");
