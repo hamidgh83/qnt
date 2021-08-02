@@ -6,7 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Services\UserService;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class LoginController
 {
@@ -25,6 +25,6 @@ class LoginController
             return UserResource::make($user);
         }
 
-        return response(['error' => 'Invalid login credentials!']);
+        return response(['error' => 'Invalid login credentials!'], Response::HTTP_FORBIDDEN);
     }
 }
