@@ -15,12 +15,12 @@ alias sail='./vendor/bin/sail'
 # Start sail
 sail up -d
 
-# If you get an error about an encryption key
+# Generate key
 sail artisan key:generate
 
 # Run Migrations
 sail artisan migrate
 
-# Install passport
+# Install Passport
 sail artisan passport:install
 ```
