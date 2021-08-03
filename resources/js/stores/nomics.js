@@ -14,7 +14,9 @@ export default new Vuex.Store({
     },
     getters: {
         getCurrencies: state => {
-            return state.currencies
+            return state.currencies.map( item => {
+                return item.currency
+            })
         }
     }
 });

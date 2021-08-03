@@ -1,33 +1,63 @@
 <template>
-    <v-container>
-        <v-card color="black lighten-2" dark>
-            <v-card-title class="text-h5 grey darken-3">
-                Search for currencies
-            </v-card-title>
-            <v-card-text>
+    <div>
+        <nav-bar title="Dashboard" />
+        
+        <v-container>
+
+            <v-card  class="mx-auto" max-width="400">
+                <v-card-title class="text-h5">
+                    Search for currencies
+                </v-card-title>
                 <v-card-text>
                     <v-autocomplete
-                        v-model="value"
+                        v-model="currency"
                         :items="items"
                         dense
                         filled
                         label="Type a currency name"
                     ></v-autocomplete>
+                    <v-btn 
+                        :disabled="this.activeSearch"
+                        large 
+                        color="success" 
+                        @click="getMarkets()"
+                        >Search</v-btn>
                 </v-card-text>
-            </v-card-text>
-        </v-card>
-      </v-container>
+            </v-card>
+
+            <market 
+                v-if="this.marketItems.length > 0"
+                :items=this.marketItems 
+                :headers=this.headers />
+
+        </v-container>
+    </div>
 </template>
 
 <script>
 import Nomics from "../services/Nomics";
+import Market from "./Market.vue";
+import NavBar from "./Nav.vue";
 import store from "../stores/nomics";
 
 export default {
+    components: {
+        'market': Market,
+        'nav-bar': NavBar
+    },
     data: () => ({
-    //   items: ['foo', 'bar', 'fizz', 'buzz'],
-      values: ['foo', 'bar'],
-      value: null,
+      currency: null,
+      markets: [],
+      headers: [
+          {
+            text: 'exchange',
+            align: 'start',
+            sortable: false,
+            value: 'exchange',
+          },
+          { text: 'market', value: 'market' },
+          { text: 'quote', value: 'quote' }
+        ]
     }),
     mounted() {
         Nomics.getCurrencies().then(response => {
@@ -36,7 +66,20 @@ export default {
     },
     computed: {
         items() {
-            return store.state.currencies
+            return store.getters.getCurrencies
+        },
+        marketItems() {
+            return this.markets
+        },
+        activeSearch() {
+            return this.currency != null ? false : true
+        }
+    },
+    methods: {
+        getMarkets() {
+            Nomics.getMarkets(this.currency).then(response => {
+                this.markets = response
+            })
         }
     }
 }

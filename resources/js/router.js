@@ -3,7 +3,9 @@ import Router from "vue-router";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Auth from "./services/Auth";
 import store from "./stores/user";
+
 
 Vue.use(Router);
 
@@ -42,12 +44,12 @@ router.beforeEach((to, from, next) => {
   var routes = ["login", "register"]
   
   /* Redirect to home if user is logged in */
-  if (localStorage.token && routes.indexOf(to.name) > -1) {
+  if (Auth.isLogin() && routes.indexOf(to.name) > -1) {
     return router.push({ name: "dashboard" })
   }
   
   /* Redirect to login if user is logged out */
-  if (!localStorage.token) {
+  if (!Auth.isLogin()) {
     if (routes.indexOf(to.name) == -1) {
       return router.push({ name: "login" })
     }

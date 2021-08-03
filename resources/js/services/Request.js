@@ -4,7 +4,7 @@ import Vue from "vue";
 import _ from "lodash";
 
 const service = axios.create({
-  timeout: 5000, // Maximum timeout is 5s
+  timeout: 10000, // Maximum timeout is 5s
   baseURL: process.env.MIX_API_URL
 });
 
@@ -41,7 +41,6 @@ service.interceptors.response.use(
           return Promise.reject(errors[Object.keys(errors)[0]]);
         }
         break;
-      
     }
 
     return Promise.reject(error);

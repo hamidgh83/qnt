@@ -9,7 +9,7 @@ import store from "./stores/user";
 
 export default {
   data: () => ({
-      layout: Default,
+      layout: Default
   }),
   components: {
     Default
@@ -17,8 +17,6 @@ export default {
   mounted() {
     if (!auth.isLogin()) {
       store.commit("userLogout")
-    } else {
-      store.commit("getUserInfo")
     }
   }
 };

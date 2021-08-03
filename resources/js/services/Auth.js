@@ -59,11 +59,19 @@ const AuthService = {
   },
 
   setLogin(data) {
-    localStorage.setItem("token", data.access_token);
+    localStorage.setItem('user', JSON.stringify(data))
   },
 
   getToken: function() {
-    return localStorage.getItem("token");
+    let user = localStorage.getItem('user')
+
+    if (user == null) {
+      return false
+    }
+
+    user = JSON.parse(user)
+
+    return _.get(user, 'access_token', false)
   },
 
   isLogin: function() {

@@ -1,65 +1,61 @@
 <template>
-    
-      <v-container>
-        <v-layout wrap>
-          <v-flex sm12 md6 offset-md3 >
-            <v-card elevation="4" light tag="section">
-              <v-card-title>
-                <v-layout align-center justify-space-between>
-                  <h3 class="headline">
-                    Login
-                  </h3>
-                </v-layout>
-              </v-card-title>
-              <v-card-text>
-                <v-form
-                    ref="form"
-                    v-model="validForm"
-                    lazy-validation
-                  >
-                  <v-text-field
-                                outline
-                                label="Email"
-                                :rules="rules.email"
-                                type="text"
-                                v-model="form.email"></v-text-field>
-                  <v-text-field
-                                outline
-                                hide-details
-                                :rules="rules.password"
-                                label="Password"
-                                type="password"
-                                v-model="form.password"></v-text-field>
-                </v-form>
+  <v-container fill-height>
+    <v-flex sm12 md6 offset-md3 >
+      <v-card elevation="4" class="align-self-center" light tag="section">
+        <v-card-title>
+          <v-layout align-center justify-space-between>
+            <h3 class="headline">
+              Login
+            </h3>
+          </v-layout>
+        </v-card-title>
+        <v-card-text>
+          <v-form
+              ref="form"
+              v-model="validForm"
+              lazy-validation
+            >
+            <v-text-field
+                          outline
+                          label="Email"
+                          :rules="rules.email"
+                          type="text"
+                          v-model="form.email"></v-text-field>
+            <v-text-field
+                          outline
+                          hide-details
+                          :rules="rules.password"
+                          label="Password"
+                          type="password"
+                          v-model="form.password"></v-text-field>
+          </v-form>
 
-                <v-alert
-                  border="left"
-                  colored-border
-                  color="red accent-4"
-                  elevation="2"
-                  v-if="this.error.length > 0"
-                >
-                  {{this.error}}
-                </v-alert>
+          <v-alert
+            border="left"
+            colored-border
+            color="red accent-4"
+            elevation="2"
+            v-if="this.error.length > 0"
+          >
+            {{this.error}}
+          </v-alert>
 
-              </v-card-text>
-              <v-card-actions :class="{ 'pa-3': $vuetify.breakpoint.smAndUp }">
+        </v-card-text>
+        <v-card-actions :class="{ 'pa-3': $vuetify.breakpoint.smAndUp }">
 
-                <router-link
-                  to="/register"
-                >
-                  Don't have account yet?
-                </router-link>
-                <v-spacer></v-spacer>
-                <v-btn color="info" :large="$vuetify.breakpoint.smAndUp" @click="login">
-                  Login
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    
+          <router-link
+            to="/register"
+          >
+            Don't have account yet?
+          </router-link>
+          <v-spacer></v-spacer>
+          <v-btn color="info" :large="$vuetify.breakpoint.smAndUp" @click="login">
+            Login
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-flex>
+  </v-container>
 </template>
 
 <script>
